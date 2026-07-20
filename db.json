@@ -1,0 +1,235 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@galaxygraphycs.com",
+      "password": "password123",
+      "role": "admin",
+      "name": "Admin"
+    },
+    {
+      "id": "2",
+      "email": "customer@example.com",
+      "password": "password123",
+      "role": "customer",
+      "name": "Customer"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat_1",
+      "name": "Banner"
+    },
+    {
+      "id": "cat_2",
+      "name": "Poster"
+    },
+    {
+      "id": "cat_3",
+      "name": "Sticker"
+    },
+    {
+      "id": "cat_4",
+      "name": "Glass sticker"
+    },
+    {
+      "id": "cat_5",
+      "name": "Visiting Card"
+    },
+    {
+      "id": "cat_6",
+      "name": "ID Card"
+    },
+    {
+      "id": "cat_7",
+      "name": "Others"
+    },
+    {
+      "id": "cat_1784472839326",
+      "name": "A4"
+    },
+    {
+      "id": "cat_1784474973537",
+      "name": "b4"
+    }
+  ],
+  "materials": [
+    {
+      "id": "mat_1",
+      "categoryId": "cat_1",
+      "name": "Standard Vinyl",
+      "pricePerSqFt": 150
+    },
+    {
+      "id": "mat_2",
+      "categoryId": "cat_1",
+      "name": "Premium Star Flex",
+      "pricePerSqFt": 250
+    },
+    {
+      "id": "mat_3",
+      "categoryId": "cat_2",
+      "name": "Glossy Paper 300gsm",
+      "pricePerSqFt": 100
+    },
+    {
+      "id": "mat_4",
+      "categoryId": "cat_3",
+      "name": "Clear Vinyl",
+      "pricePerSqFt": 200
+    },
+    {
+      "id": "mat_1784472852067",
+      "categoryId": "cat_1784472839326",
+      "name": "300",
+      "pricePerSqFt": 10
+    },
+    {
+      "id": "mat_1784474983337",
+      "categoryId": "cat_1784474973537",
+      "name": "45",
+      "pricePerSqFt": 12
+    },
+    {
+      "id": "mat_1784475003070",
+      "categoryId": "cat_4",
+      "name": "34",
+      "pricePerSqFt": 34
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD_1784470511779_715",
+      "customerId": "2",
+      "customerName": "Customer",
+      "categoryId": "cat_1",
+      "categoryName": "Banner",
+      "customCategory": "",
+      "materialId": "mat_1",
+      "materialName": "Standard Vinyl",
+      "width": 16,
+      "height": 14,
+      "unit": "in",
+      "squareMeters": 0.14451584,
+      "totalAmount": 21.677376000000002,
+      "paymentMethod": "shop",
+      "status": "Pending",
+      "createdAt": "2026-07-19T14:15:11.779Z"
+    },
+    {
+      "id": "ORD_1784471749805_122",
+      "customerId": "2",
+      "customerName": "Customer",
+      "printTitle": "print Picnic",
+      "printDescription": "aefdmhbvukhdjbwlkasdnmlkchilsydgfkhjbnckhjgkhndf",
+      "quantity": 10,
+      "sampleFileName": null,
+      "categoryId": "cat_1",
+      "categoryName": "Banner",
+      "customCategory": "",
+      "materialId": "mat_1",
+      "materialName": "Standard Vinyl",
+      "width": 12,
+      "height": 12,
+      "unit": "in",
+      "squareFeet": 1,
+      "totalAmount": 1500,
+      "paymentMethod": "shop",
+      "status": "Cancelled",
+      "createdAt": "2026-07-19T14:35:49.805Z"
+    },
+    {
+      "id": "ORD_1784472746992_785",
+      "customerId": "2",
+      "customerName": "Customer",
+      "printTitle": "fhcfghgvjyhgjbkjhb",
+      "printDescription": "hgchgvkhjgiyhgb",
+      "quantity": 10,
+      "sampleFileName": "Screenshot 2026-07-19 143050.png",
+      "categoryId": "cat_1",
+      "categoryName": "Banner",
+      "customCategory": "",
+      "materialId": "mat_1",
+      "materialName": "Standard Vinyl",
+      "width": 12,
+      "height": 12,
+      "unit": "in",
+      "squareFeet": 1,
+      "totalAmount": 1500,
+      "paymentMethod": "shop",
+      "status": "Processing",
+      "createdAt": "2026-07-19T14:52:26.992Z"
+    },
+    {
+      "id": "ORD_1784473172584_660",
+      "customerId": "2",
+      "customerName": "Customer",
+      "printTitle": "sfvdgfgsasdsfvv",
+      "printDescription": "sdvgvdfvgfbdfv",
+      "quantity": 11,
+      "sampleFileName": "Screenshot 2026-07-19 143050.png",
+      "categoryId": "cat_1",
+      "categoryName": "Banner",
+      "customCategory": "",
+      "materialId": "mat_1",
+      "materialName": "Standard Vinyl",
+      "width": 11,
+      "height": 11,
+      "unit": "in",
+      "squareFeet": 0.8402777777777778,
+      "totalAmount": 1386.4583333333335,
+      "paymentMethod": "shop",
+      "fileUrl": "/uploads/ORD_1784473172584_660_Screenshot_2026-07-19_143050.png",
+      "status": "Cancelled",
+      "createdAt": "2026-07-19T14:59:32.609Z"
+    },
+    {
+      "id": "ORD_1784473249745_671",
+      "customerId": "2",
+      "customerName": "Customer",
+      "printTitle": "dfwse",
+      "printDescription": "nbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYG",
+      "quantity": 123,
+      "sampleFileName": "Screenshot 2026-07-19 143025.png",
+      "categoryId": "cat_1",
+      "categoryName": "Banner",
+      "customCategory": "",
+      "materialId": "mat_1",
+      "materialName": "Standard Vinyl",
+      "width": 1,
+      "height": 34,
+      "unit": "in",
+      "squareFeet": 0.2361111111111111,
+      "totalAmount": 4356.25,
+      "paymentMethod": "shop",
+      "fileUrl": "/uploads/ORD_1784473249745_671_Screenshot_2026-07-19_143025.png",
+      "status": "Pending",
+      "createdAt": "2026-07-19T15:00:49.747Z"
+    },
+    {
+      "id": "ORD_1784474900773_844",
+      "customerId": "2",
+      "customerName": "Customer",
+      "contactNo": "9954208143",
+      "whatsappNo": "",
+      "printTitle": "ghfuygukhuog",
+      "printDescription": "nbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYGnbvsjvbKSDhcvkljhgasdvclkhlsdaivljkhbads,khvb,jkhgcvljkhgssdfvljkhgrlivgerilyuwghfkjweghlfikughweiughfiuwehgfliugaweiugfiyedsfgliysrfgilyuerwfgfioygreadsliuygfiergfiygiyrguyregafgiygiayerfdgiygarfiygrfuiygfuyfgigfaiugifurgyIYEGFTIYG",
+      "quantity": 5,
+      "sampleFileName": "Screenshot 2026-07-10 013738.png",
+      "categoryId": "cat_1",
+      "categoryName": "Banner",
+      "customCategory": "",
+      "materialId": "mat_2",
+      "materialName": "Premium Star Flex",
+      "width": 12,
+      "height": 12,
+      "unit": "in",
+      "squareFeet": 1,
+      "totalAmount": 1250,
+      "paymentMethod": "shop",
+      "fileUrl": "/uploads/ORD_1784474900773_844_Screenshot_2026-07-10_013738.png",
+      "status": "Processing",
+      "createdAt": "2026-07-19T15:28:20.783Z"
+    }
+  ]
+}
