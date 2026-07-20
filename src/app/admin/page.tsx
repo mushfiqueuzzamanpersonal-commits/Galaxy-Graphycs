@@ -94,7 +94,7 @@ export default function AdminDashboardPage() {
               No orders found.
             </div>
           )}
-          {Object.entries(groupedOrders).map(([customerName, customerOrders]) => (
+          {Object.entries(groupedOrders).map(([customerName, customerOrders]: [string, any[]]) => (
             <div key={customerName} className="flex flex-col">
               <div 
                 className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-700/30 transition-colors"
