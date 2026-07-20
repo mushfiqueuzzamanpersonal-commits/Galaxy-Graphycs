@@ -46,21 +46,23 @@ export default function AdminDashboardPage() {
     return <div className="text-gray-400">Loading orders...</div>;
   }
 
-  // Group orders by customer
+  // Group orders by customer email
   const groupedOrders = orders.reduce((acc, order) => {
+    const email = order.customerEmail || 'Unknown Email';
     const name = order.customerName || 'Unknown Customer';
-    if (!acc[name]) {
-      acc[name] = [];
+    
+    if (!acc[email]) {
+      acc[email] = { name, email, orders: [] };
     }
-    acc[name].push(order);
+    acc[email].orders.push(order);
     return acc;
-  }, {} as Record<string, any[]>);
+  }, {} as Record<string, { name: string; email: string; orders: any[] }>);
 
-  const toggleCustomer = (customerName: string) => {
-    if (expandedCustomer === customerName) {
+  const toggleCustomer = (customerEmail: string) => {
+    if (expandedCustomer === customerEmail) {
       setExpandedCustomer(null);
     } else {
-      setExpandedCustomer(customerName);
+      setExpandedCustomer(customerEmail);
     }
   };
 
@@ -94,30 +96,30 @@ export default function AdminDashboardPage() {
               No orders found.
             </div>
           )}
-          {(Object.entries(groupedOrders) as [string, any[]][]).map(([customerName, customerOrders]) => (
-            <div key={customerName} className="flex flex-col">
+          {(Object.entries(groupedOrders) as [string, { name: string; email: string; orders: any[] }][]).map(([email, customerData]) => (
+            <div key={email} className="flex flex-col">
               <div 
                 className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-700/30 transition-colors"
-                onClick={() => toggleCustomer(customerName)}
+                onClick={() => toggleCustomer(email)}
               >
                 <div className="flex items-center space-x-3">
-                  {expandedCustomer === customerName ? (
+                  {expandedCustomer === email ? (
                     <ChevronDown className="w-5 h-5 text-indigo-400" />
                   ) : (
                     <ChevronRight className="w-5 h-5 text-gray-500" />
                   )}
                   <div>
-                    <h3 className="text-lg font-bold text-white">{customerName}</h3>
-                    <p className="text-xs text-gray-400">{customerOrders.length} order(s)</p>
+                    <h3 className="text-lg font-bold text-white">{customerData.name} <span className="text-sm font-normal text-indigo-300 ml-2">({email})</span></h3>
+                    <p className="text-xs text-gray-400 mt-1">{customerData.orders.length} order(s)</p>
                   </div>
                 </div>
               </div>
 
               {/* Nested Orders List */}
-              {expandedCustomer === customerName && (
+              {expandedCustomer === email && (
                 <div className="bg-gray-900/30 p-4 border-t border-gray-700/50">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {customerOrders.map(order => (
+                    {customerData.orders.map(order => (
                       <div 
                         key={order.id} 
                         onClick={() => setSelectedOrder(order)}

@@ -19,7 +19,14 @@ export async function GET(request: Request) {
   
   // Sort descending by date for all orders
   const allOrders = [...db.orders].sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  return NextResponse.json(allOrders);
+  
+  // Attach user email to orders for admin panel
+  const ordersWithEmail = allOrders.map((order: any) => {
+    const user = db.users.find((u: any) => u.id === order.customerId);
+    return { ...order, customerEmail: user?.email || 'Unknown' };
+  });
+
+  return NextResponse.json(ordersWithEmail);
 }
 
 export async function POST(request: Request) {
