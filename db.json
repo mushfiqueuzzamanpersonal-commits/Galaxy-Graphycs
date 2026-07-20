@@ -2,8 +2,8 @@
   "users": [
     {
       "id": "1",
-      "email": "admin@galaxygraphycs.com",
-      "password": "password123",
+      "email": "GalaxyAdmin",
+      "password": "Galaxygg",
       "role": "admin",
       "name": "Admin"
     },
