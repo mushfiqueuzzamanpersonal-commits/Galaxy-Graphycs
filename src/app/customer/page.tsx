@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
-import { Calculator, CheckCircle2, ChevronRight, CreditCard, Wallet, QrCode, Upload, Package } from 'lucide-react';
+import { Calculator, CheckCircle2, ChevronRight, Wallet, Upload, Package } from 'lucide-react';
 import Image from 'next/image';
 
 export default function CustomerOrderPage() {
@@ -36,7 +36,7 @@ export default function CustomerOrderPage() {
   
   // UI State
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0); // 0: Landing, 1: Form, 2: Checkout, 3: Success
-  const [paymentMethod, setPaymentMethod] = useState<'shop' | 'upi' | 'qr'>('shop');
+  const [paymentMethod, setPaymentMethod] = useState<'shop'>('shop');
   const [orderResult, setOrderResult] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -415,43 +415,8 @@ export default function CustomerOrderPage() {
               </div>
               {paymentMethod === 'shop' && <CheckCircle2 className="w-5 h-5 text-indigo-500" />}
             </label>
-
-            <label className={`flex items-center p-4 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'upi' ? 'border-indigo-500 bg-indigo-500/10' : 'border-gray-600 hover:border-gray-500 bg-gray-900'}`}>
-              <input type="radio" name="payment" value="upi" checked={paymentMethod === 'upi'} onChange={() => setPaymentMethod('upi')} className="hidden" />
-              <CreditCard className={`w-6 h-6 mr-4 ${paymentMethod === 'upi' ? 'text-indigo-400' : 'text-gray-400'}`} />
-              <div className="flex-1">
-                <p className="font-bold text-white">UPI Payment</p>
-                <p className="text-sm text-gray-400">Pay directly via UPI ID</p>
-              </div>
-              {paymentMethod === 'upi' && <CheckCircle2 className="w-5 h-5 text-indigo-500" />}
-            </label>
-
-            <label className={`flex items-center p-4 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'qr' ? 'border-indigo-500 bg-indigo-500/10' : 'border-gray-600 hover:border-gray-500 bg-gray-900'}`}>
-              <input type="radio" name="payment" value="qr" checked={paymentMethod === 'qr'} onChange={() => setPaymentMethod('qr')} className="hidden" />
-              <QrCode className={`w-6 h-6 mr-4 ${paymentMethod === 'qr' ? 'text-indigo-400' : 'text-gray-400'}`} />
-              <div className="flex-1">
-                <p className="font-bold text-white">Scan QR Code</p>
-                <p className="text-sm text-gray-400">Scan QR code to pay</p>
-              </div>
-              {paymentMethod === 'qr' && <CheckCircle2 className="w-5 h-5 text-indigo-500" />}
-            </label>
           </div>
 
-          {paymentMethod === 'upi' && (
-            <div className="mb-8 p-4 bg-gray-900 rounded-lg border border-gray-700 text-center">
-              <p className="text-sm text-gray-400 mb-1">Please pay to this UPI ID:</p>
-              <p className="text-lg font-bold text-indigo-400 select-all">11246473934@okbizaxis</p>
-            </div>
-          )}
-
-          {paymentMethod === 'qr' && (
-            <div className="mb-8 p-6 bg-gray-900 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
-              <div className="w-48 h-48 bg-white p-2 rounded-xl flex items-center justify-center mb-4 relative">
-                <Image src="/qr-code.png" alt="Galaxy Graphics QR Code" fill className="object-contain p-2" />
-              </div>
-              <p className="text-sm text-gray-400">Scan to pay ₹{finalPrice.toFixed(2)}</p>
-            </div>
-          )}
 
           <div className="flex space-x-4">
             <button
