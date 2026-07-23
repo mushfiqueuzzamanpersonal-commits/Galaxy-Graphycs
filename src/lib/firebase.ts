@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,10 +17,12 @@ const firebaseConfig = {
 // (Next.js hot reloading can sometimes cause errors if we try to initialize multiple times)
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
+export const db = getFirestore(app);
+
 // Initialize Analytics safely (only supported in browser environments)
 let analytics;
 if (typeof window !== "undefined") {
   isSupported().then((yes) => yes && (analytics = getAnalytics(app)));
 }
 
-export { app, analytics };
+export { app, analytics, db };

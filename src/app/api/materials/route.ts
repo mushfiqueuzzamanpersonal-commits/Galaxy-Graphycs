@@ -1,39 +1,39 @@
 import { NextResponse } from 'next/server';
-import { readDb, writeDb } from '@/lib/db';
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, setDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const categoryId = searchParams.get('categoryId');
-  const db = await readDb();
   
-  if (!db) return NextResponse.json({ error: 'Database error' }, { status: 500 });
-  
-  if (categoryId) {
-    const materials = db.materials.filter((m: any) => m.categoryId === categoryId);
+  try {
+    const materialsCol = collection(db, 'materials');
+    const q = categoryId ? query(materialsCol, where('categoryId', '==', categoryId)) : materialsCol;
+    const snapshot = await getDocs(q);
+    const materials = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     return NextResponse.json(materials);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Database error' }, { status: 500 });
   }
-  
-  return NextResponse.json(db.materials);
 }
 
 export async function POST(request: Request) {
   try {
     const { categoryId, name, pricePerSqFt } = await request.json();
-    const db = await readDb();
     
-    if (!db) return NextResponse.json({ error: 'Database error' }, { status: 500 });
-    
+    const id = `mat_${Date.now()}`;
     const newMaterial = { 
-      id: `mat_${Date.now()}`, 
       categoryId, 
       name, 
       pricePerSqFt: Number(pricePerSqFt) 
     };
-    db.materials.push(newMaterial);
     
-    await writeDb(db);
-    return NextResponse.json(newMaterial);
+    await setDoc(doc(db, 'materials', id), newMaterial);
+    
+    return NextResponse.json({ id, ...newMaterial });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -41,20 +41,19 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   try {
     const { id, name, pricePerSqFt } = await request.json();
-    const db = await readDb();
     
-    if (!db) return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    if (!id) return NextResponse.json({ error: 'Material ID is required' }, { status: 400 });
+
+    const materialRef = doc(db, 'materials', id);
+    const updates: any = {};
+    if (name) updates.name = name;
+    if (pricePerSqFt) updates.pricePerSqFt = Number(pricePerSqFt);
     
-    const index = db.materials.findIndex((m: any) => m.id === id);
-    if (index !== -1) {
-      if (name) db.materials[index].name = name;
-      if (pricePerSqFt) db.materials[index].pricePerSqFt = Number(pricePerSqFt);
-      await writeDb(db);
-      return NextResponse.json(db.materials[index]);
-    }
+    await updateDoc(materialRef, updates);
     
-    return NextResponse.json({ error: 'Material not found' }, { status: 404 });
+    return NextResponse.json({ id, ...updates });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -63,14 +62,14 @@ export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-    const db = await readDb();
     
-    if (!db) return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    if (!id) return NextResponse.json({ error: 'Material ID is required' }, { status: 400 });
+
+    await deleteDoc(doc(db, 'materials', id));
     
-    db.materials = db.materials.filter((m: any) => m.id !== id);
-    await writeDb(db);
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

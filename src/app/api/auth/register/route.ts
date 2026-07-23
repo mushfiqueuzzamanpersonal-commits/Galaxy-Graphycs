@@ -1,37 +1,33 @@
 import { NextResponse } from 'next/server';
-import { readDb, writeDb } from '@/lib/db';
+import { collection, query, where, getDocs, doc, setDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export async function POST(request: Request) {
   try {
     const { name, email, password } = await request.json();
-    const db = await readDb();
+    
+    const usersCol = collection(db, 'users');
+    const q = query(usersCol, where('email', '==', email));
+    const querySnapshot = await getDocs(q);
 
-    if (!db) {
-      return NextResponse.json({ error: 'Database error' }, { status: 500 });
-    }
-
-    if (db.users.find((u: any) => u.email === email)) {
+    if (!querySnapshot.empty) {
       return NextResponse.json({ error: 'User already exists' }, { status: 400 });
     }
 
+    const id = Date.now().toString();
     const newUser = {
-      id: Date.now().toString(),
       name,
       email,
       password, // Should be hashed in a real app
       role: 'customer' // Default role for new registrations
     };
 
-    db.users.push(newUser);
-    const success = await writeDb(db);
+    await setDoc(doc(db, 'users', id), newUser);
 
-    if (success) {
-      const { password: _, ...userInfo } = newUser;
-      return NextResponse.json({ user: userInfo });
-    } else {
-      return NextResponse.json({ error: 'Failed to save user' }, { status: 500 });
-    }
+    const { password: _, ...userInfo } = newUser;
+    return NextResponse.json({ user: { id, ...userInfo } });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
