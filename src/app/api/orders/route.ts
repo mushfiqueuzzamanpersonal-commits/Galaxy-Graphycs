@@ -85,3 +85,27 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    const db = await readDb();
+    
+    if (!db) return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    
+    if (!id) return NextResponse.json({ error: 'Order ID is required' }, { status: 400 });
+
+    const initialLength = db.orders.length;
+    db.orders = db.orders.filter((o: any) => o.id !== id);
+    
+    if (db.orders.length < initialLength) {
+      await writeDb(db);
+      return NextResponse.json({ message: 'Order deleted successfully' });
+    }
+    
+    return NextResponse.json({ error: 'Order not found' }, { status: 404 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}

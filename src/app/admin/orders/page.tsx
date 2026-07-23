@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Package, Search, ChevronDown, ChevronRight, X, FileText } from 'lucide-react';
+import { Package, Search, ChevronDown, ChevronRight, X, FileText, Trash2 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -39,6 +39,25 @@ export default function AdminDashboardPage() {
       }
     } catch (e) {
       console.error("Failed to update status");
+    }
+  };
+
+  const deleteOrder = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm('Are you sure you want to delete this order?')) return;
+    
+    try {
+      const res = await fetch(`/api/orders?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        fetchOrders();
+        if (selectedOrder?.id === id) {
+          setSelectedOrder(null);
+        }
+      }
+    } catch (e) {
+      console.error("Failed to delete order");
     }
   };
 
@@ -127,13 +146,23 @@ export default function AdminDashboardPage() {
                       >
                         <div className="flex justify-between items-start mb-2">
                           <span className="font-mono text-xs text-indigo-400">{order.id}</span>
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-                            order.status === 'Completed' ? 'bg-green-500/10 text-green-400' : 
-                            order.status === 'Processing' ? 'bg-blue-500/10 text-blue-400' : 
-                            'bg-yellow-500/10 text-yellow-400'
-                          }`}>
-                            {order.status}
-                          </span>
+                          <div className="flex items-center space-x-2">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                              order.status === 'Completed' ? 'bg-green-500/10 text-green-400' : 
+                              order.status === 'Processing' ? 'bg-blue-500/10 text-blue-400' : 
+                              order.status === 'Cancelled' ? 'bg-red-500/10 text-red-400' : 
+                              'bg-yellow-500/10 text-yellow-400'
+                            }`}>
+                              {order.status}
+                            </span>
+                            <button 
+                              onClick={(e) => deleteOrder(order.id, e)}
+                              className="text-gray-500 hover:text-red-400 transition-colors p-1 rounded hover:bg-gray-700/50"
+                              title="Delete Order"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </div>
                         <h4 className="text-white font-bold truncate mb-1">{order.printTitle}</h4>
                         <div className="text-xs text-gray-400 mb-2">{new Date(order.createdAt).toLocaleDateString()}</div>
@@ -160,12 +189,21 @@ export default function AdminDashboardPage() {
                 <h3 className="text-xl font-bold text-white">Order Details</h3>
                 <p className="text-sm font-mono text-indigo-400">{selectedOrder.id}</p>
               </div>
-              <button 
-                onClick={() => setSelectedOrder(null)}
-                className="text-gray-400 hover:text-white p-2 hover:bg-gray-700 rounded-lg transition-colors"
-              >
-                <X className="w-6 h-6" />
-              </button>
+              <div className="flex items-center space-x-2">
+                <button 
+                  onClick={(e) => deleteOrder(selectedOrder.id, e)}
+                  className="text-gray-400 hover:text-red-400 p-2 hover:bg-gray-700 rounded-lg transition-colors flex items-center space-x-1"
+                  title="Delete Order"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={() => setSelectedOrder(null)}
+                  className="text-gray-400 hover:text-white p-2 hover:bg-gray-700 rounded-lg transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
             
             <div className="p-6 space-y-6">
