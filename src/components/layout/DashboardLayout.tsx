@@ -35,7 +35,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const navItems = user.role === 'admin' 
     ? [
-        { label: 'Orders', href: '/admin', icon: LayoutDashboard },
+        { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+        { label: 'Orders', href: '/admin/orders', icon: ShoppingCart },
         { label: 'Materials', href: '/admin/materials', icon: Settings },
       ]
     : [
