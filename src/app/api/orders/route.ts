@@ -59,10 +59,18 @@ export async function POST(request: Request) {
       fileUrl = `/uploads/${filename}`;
     }
 
+    delete data.fileBase64; // Don't store large base64 string in DB
+
+    // Remove any potential undefined fields since Firestore rejects them
+    Object.keys(data).forEach(key => {
+      if (data[key] === undefined) {
+        delete data[key];
+      }
+    });
+
     const newOrder = { 
       ...data,
       fileUrl,
-      fileBase64: undefined, // Don't store large base64 string in DB
       status: 'Pending',
       createdAt: new Date().toISOString()
     };
