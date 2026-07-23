@@ -25,4 +25,4 @@ if (typeof window !== "undefined") {
   isSupported().then((yes) => yes && (analytics = getAnalytics(app)));
 }
 
-export { app, analytics, db };
+export { app, analytics };
