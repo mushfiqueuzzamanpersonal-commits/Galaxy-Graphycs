@@ -31,24 +31,7 @@ export async function GET(request: Request) {
       fallbackRedirect = true;
     }
     
-    // Delete the file locally if it exists
-    if (!fallbackRedirect) {
-      try {
-        await fs.unlink(filepath);
-      } catch (e) {
-        console.error("Failed to delete file:", e);
-      }
-    }
-
-    // If orderId is provided, remove fileUrl from order so it won't be shown anymore
-    if (orderId) {
-      try {
-        const orderRef = doc(db, 'orders', orderId);
-        await updateDoc(orderRef, { fileUrl: null });
-      } catch (e) {
-        console.error("Failed to update order:", e);
-      }
-    }
+    // Let the admin keep the download link until they manually delete it.
 
     if (fallbackRedirect) {
       return NextResponse.redirect(new URL(fileUrl, request.url));
@@ -71,6 +54,61 @@ export async function GET(request: Request) {
 
   } catch (error) {
     console.error(error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const fileUrl = searchParams.get('fileUrl');
+    const orderId = searchParams.get('orderId');
+
+    if (!fileUrl || !orderId) {
+      return NextResponse.json({ error: 'File URL and Order ID are required' }, { status: 400 });
+    }
+
+    // 1. Remove from Firebase database
+    const orderRef = doc(db, 'orders', orderId);
+    await updateDoc(orderRef, { fileUrl: null });
+
+    // 2. Remove from Cloudinary (if applicable)
+    if (process.env.CLOUDINARY_URL && fileUrl.includes('cloudinary.com')) {
+      const { v2: cloudinary } = await import('cloudinary');
+      const filename = fileUrl.split('/').pop();
+      if (filename) {
+        const baseName = filename.substring(0, filename.lastIndexOf('.')) || filename;
+        
+        // Cloudinary stores images and raw files differently. We attempt deletion on all likely formats to be safe.
+        const imageIdWithExt = `galaxy_graphycs_orders/${filename}`;
+        const imageIdWithoutExt = `galaxy_graphycs_orders/${baseName}`;
+
+        await Promise.allSettled([
+          cloudinary.uploader.destroy(imageIdWithExt),
+          cloudinary.uploader.destroy(imageIdWithoutExt),
+          cloudinary.uploader.destroy(imageIdWithExt, { resource_type: 'raw' }),
+          cloudinary.uploader.destroy(imageIdWithoutExt, { resource_type: 'raw' })
+        ]);
+      }
+    }
+
+    // 3. Remove local file fallback (if applicable)
+    if (!fileUrl.includes('cloudinary.com')) {
+      const filename = fileUrl.split('/').pop();
+      if (filename) {
+        const filepath = path.join(process.cwd(), 'public', 'uploads', filename);
+        try {
+          const fs = await import('fs/promises');
+          await fs.default.unlink(filepath);
+        } catch (e) {
+          // Ignore if local file doesn't exist
+        }
+      }
+    }
+
+    return NextResponse.json({ message: 'File deleted successfully' });
+  } catch (error) {
+    console.error("Delete Error:", error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

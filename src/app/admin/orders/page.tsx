@@ -286,21 +286,40 @@ export default function AdminDashboardPage() {
                           <span className="text-sm text-gray-300">{selectedOrder.sampleFileName}</span>
                         </div>
                         {selectedOrder.fileUrl && (
-                          <a 
-                            href={`/api/download?fileUrl=${encodeURIComponent(selectedOrder.fileUrl)}&orderId=${selectedOrder.id}`}
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            download
-                            onClick={() => {
-                              setTimeout(() => {
-                                fetchOrders();
-                                setSelectedOrder((prev: any) => ({ ...prev, fileUrl: null }));
-                              }, 1500);
-                            }}
-                            className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-md font-bold transition-colors shadow-lg"
-                          >
-                            Download
-                          </a>
+                          <div className="flex items-center space-x-2">
+                            <a 
+                              href={`/api/download?fileUrl=${encodeURIComponent(selectedOrder.fileUrl)}&orderId=${selectedOrder.id}`}
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              download
+                              className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-md font-bold transition-colors shadow-lg"
+                            >
+                              Download
+                            </a>
+                            <button
+                              onClick={async () => {
+                                if (confirm('Are you sure you want to permanently delete this file from the server?')) {
+                                  try {
+                                    const res = await fetch(`/api/download?fileUrl=${encodeURIComponent(selectedOrder.fileUrl)}&orderId=${selectedOrder.id}`, {
+                                      method: 'DELETE',
+                                    });
+                                    if (res.ok) {
+                                      fetchOrders();
+                                      setSelectedOrder((prev: any) => ({ ...prev, fileUrl: null }));
+                                    } else {
+                                      alert("Failed to delete file.");
+                                    }
+                                  } catch (e) {
+                                    console.error("Failed to delete file", e);
+                                    alert("An error occurred while deleting the file.");
+                                  }
+                                }
+                              }}
+                              className="bg-red-600 hover:bg-red-500 text-white text-xs px-3 py-1.5 rounded-md font-bold transition-colors shadow-lg"
+                            >
+                              Delete File
+                            </button>
+                          </div>
                         )}
                       </div>
                     </div>
