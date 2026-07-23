@@ -287,10 +287,16 @@ export default function AdminDashboardPage() {
                         </div>
                         {selectedOrder.fileUrl && (
                           <a 
-                            href={selectedOrder.fileUrl} 
+                            href={`/api/download?fileUrl=${encodeURIComponent(selectedOrder.fileUrl)}&orderId=${selectedOrder.id}`}
                             target="_blank" 
                             rel="noopener noreferrer"
                             download
+                            onClick={() => {
+                              setTimeout(() => {
+                                fetchOrders();
+                                setSelectedOrder((prev: any) => ({ ...prev, fileUrl: null }));
+                              }, 1500);
+                            }}
                             className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-md font-bold transition-colors shadow-lg"
                           >
                             Download

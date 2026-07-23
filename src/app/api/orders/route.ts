@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -48,15 +49,28 @@ export async function POST(request: Request) {
     let fileUrl = null;
 
     if (data.fileBase64 && data.sampleFileName) {
-      const base64Data = data.fileBase64.split(',')[1];
-      const buffer = Buffer.from(base64Data, 'base64');
       const safeFilename = data.sampleFileName.replace(/[^a-zA-Z0-9.-]/g, '_');
       const filename = `${orderId}_${safeFilename}`;
-      const filepath = path.join(process.cwd(), 'public', 'uploads', filename);
-      // Note: Local file writes will still vanish on Vercel. 
-      // For permanent file storage, Firebase Storage should be used.
-      await fs.writeFile(filepath, buffer).catch(console.error);
-      fileUrl = `/uploads/${filename}`;
+
+      if (process.env.CLOUDINARY_URL) {
+        try {
+          const uploadResponse = await cloudinary.uploader.upload(data.fileBase64, {
+            folder: 'galaxy_graphycs_orders',
+            public_id: filename,
+            resource_type: 'auto' // Supports raw files like PDFs or PSDs
+          });
+          fileUrl = uploadResponse.secure_url;
+        } catch (error) {
+          console.error("Cloudinary Upload Failed:", error);
+          fileUrl = null;
+        }
+      } else {
+        const base64Data = data.fileBase64.split(',')[1];
+        const buffer = Buffer.from(base64Data, 'base64');
+        const filepath = path.join(process.cwd(), 'public', 'uploads', filename);
+        await fs.writeFile(filepath, buffer).catch(console.error);
+        fileUrl = `/uploads/${filename}`;
+      }
     }
 
     delete data.fileBase64; // Don't store large base64 string in DB
