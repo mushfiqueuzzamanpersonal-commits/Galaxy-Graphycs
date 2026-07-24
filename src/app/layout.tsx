@@ -13,7 +13,10 @@ export const metadata: Metadata = {
     description: "High-quality banners, posters, visiting cards, and custom prints. Order easily through our customer portal.",
     type: "website",
     siteName: "Galaxy Graphycs",
-  }
+  },
+  verification: {
+    google: 'yG5NWZlFEavJI-Jj64fX_U7BkDfJq27_0r9b6gu7JFQ',
+  },
 };
 
 export default function RootLayout({
