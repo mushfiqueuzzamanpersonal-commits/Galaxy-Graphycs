@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Replace this domain with your actual deployed website domain
-  const baseUrl = 'https://galaxygraphycs.com';
+  const baseUrl = 'https://galaxy-graphycs-1.onrender.com';
 
   return [
     {

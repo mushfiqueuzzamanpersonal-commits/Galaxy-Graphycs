@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ['/admin/', '/api/'],
     },
     // Replace with your actual domain later
-    sitemap: 'https://galaxygraphycs.com/sitemap.xml',
+    sitemap: 'https://galaxy-graphycs-1.onrender.com/sitemap.xml',
   };
 }
