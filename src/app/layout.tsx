@@ -5,8 +5,15 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Galaxy Graphycs - Print Portal",
-  description: "Order and manage printing requests with Galaxy Graphycs.",
+  title: "Galaxy Graphycs | Premium Printing & Design Services",
+  description: "Order and manage your printing requests with Galaxy Graphycs. We offer high-quality banners, posters, visiting cards, custom prints, and more.",
+  keywords: "Galaxy Graphycs, printing services, banners, posters, visiting cards, custom prints, online print ordering",
+  openGraph: {
+    title: "Galaxy Graphycs | Premium Printing Services",
+    description: "High-quality banners, posters, visiting cards, and custom prints. Order easily through our customer portal.",
+    type: "website",
+    siteName: "Galaxy Graphycs",
+  }
 };
 
 export default function RootLayout({
