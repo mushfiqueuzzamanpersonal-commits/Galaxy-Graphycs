@@ -143,40 +143,40 @@ export default function CustomerOrderPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {step === 0 ? (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6">
-          <div className="w-24 h-24 bg-indigo-500/10 rounded-full flex items-center justify-center mb-4">
-            <Package className="w-12 h-12 text-indigo-400" />
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-4 md:space-y-6">
+          <div className="w-20 h-20 md:w-24 md:h-24 bg-indigo-500/10 rounded-full flex items-center justify-center mb-2 md:mb-4">
+            <Package className="w-10 h-10 md:w-12 md:h-12 text-indigo-400" />
           </div>
-          <h2 className="text-4xl font-extrabold text-white">Ready for a New Print?</h2>
-          <p className="text-lg text-gray-400 max-w-lg">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white">Ready for a New Print?</h2>
+          <p className="text-base md:text-lg text-gray-400 max-w-lg px-4">
             Create high-quality banners, posters, visiting cards, and more with Galaxy Graphics.
           </p>
           <button
             onClick={() => setStep(1)}
-            className="mt-8 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 px-10 rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all transform hover:scale-105"
+            className="mt-6 md:mt-8 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 md:py-4 md:px-10 rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all transform hover:scale-105"
           >
             Start New Order
           </button>
         </div>
       ) : (
         <>
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 md:mb-8 gap-4 md:gap-0">
             <div>
-              <h2 className="text-2xl font-bold text-white">Place New Order</h2>
-              <p className="text-gray-400">Fill in the details for your printing requirement.</p>
+              <h2 className="text-xl md:text-2xl font-bold text-white">Place New Order</h2>
+              <p className="text-sm md:text-base text-gray-400">Fill in the details for your printing requirement.</p>
             </div>
-            <div className="flex items-center space-x-2 text-sm">
-              <span className={`px-3 py-1 rounded-full ${step >= 1 ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-500'}`}>1. Details</span>
-              <ChevronRight className="w-4 h-4 text-gray-600" />
-              <span className={`px-3 py-1 rounded-full ${step >= 2 ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-500'}`}>2. Payment</span>
-              <ChevronRight className="w-4 h-4 text-gray-600" />
-              <span className={`px-3 py-1 rounded-full ${step === 3 ? 'bg-green-600 text-white' : 'bg-gray-800 text-gray-500'}`}>3. Done</span>
+            <div className="flex items-center flex-wrap gap-2 md:gap-0 md:space-x-2 text-xs md:text-sm">
+              <span className={`px-2 md:px-3 py-1 rounded-full ${step >= 1 ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-500'}`}>1. Details</span>
+              <ChevronRight className="w-3 h-3 md:w-4 md:h-4 text-gray-600" />
+              <span className={`px-2 md:px-3 py-1 rounded-full ${step >= 2 ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-500'}`}>2. Payment</span>
+              <ChevronRight className="w-3 h-3 md:w-4 md:h-4 text-gray-600" />
+              <span className={`px-2 md:px-3 py-1 rounded-full ${step === 3 ? 'bg-green-600 text-white' : 'bg-gray-800 text-gray-500'}`}>3. Done</span>
             </div>
           </div>
 
       {step === 1 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 space-y-6 bg-gray-800 border border-gray-700 p-6 rounded-xl">
+          <div className="md:col-span-2 space-y-6 bg-gray-800 border border-gray-700 p-4 md:p-6 rounded-xl">
             {/* Print Details */}
             <div className="space-y-4 mb-6 pb-6 border-b border-gray-700">
               <h3 className="text-lg font-bold text-white">Print Details</h3>
@@ -294,7 +294,7 @@ export default function CustomerOrderPage() {
             </div>
 
             {/* Dimensions and Quantity */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Width</label>
                 <input
@@ -304,7 +304,7 @@ export default function CustomerOrderPage() {
                   value={width}
                   onChange={(e) => setWidth(e.target.value)}
                   placeholder="Width"
-                  className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 md:px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <div>
@@ -316,10 +316,10 @@ export default function CustomerOrderPage() {
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
                   placeholder="Height"
-                  className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 md:px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
-              <div>
+              <div className="col-span-2 sm:col-span-1">
                 <label className="block text-sm font-medium text-gray-300 mb-2">Quantity</label>
                 <input
                   type="number"
@@ -354,9 +354,9 @@ export default function CustomerOrderPage() {
           </div>
 
           {/* Pricing Panel */}
-          <div className="space-y-6">
-            <div className="bg-gradient-to-b from-indigo-900 to-gray-800 border border-indigo-500/30 p-6 rounded-xl shadow-xl sticky top-8">
-              <div className="flex items-center space-x-3 mb-6">
+          <div className="space-y-6 mt-6 md:mt-0">
+            <div className="bg-gradient-to-b from-indigo-900 to-gray-800 border border-indigo-500/30 p-5 md:p-6 rounded-xl shadow-xl sticky top-8">
+              <div className="flex items-center space-x-3 mb-4 md:mb-6">
                 <Calculator className="w-6 h-6 text-indigo-400" />
                 <h3 className="text-lg font-bold">Calculation</h3>
               </div>
@@ -402,8 +402,8 @@ export default function CustomerOrderPage() {
       )}
 
       {step === 2 && (
-        <div className="max-w-2xl mx-auto bg-gray-800 border border-gray-700 p-8 rounded-xl">
-          <h3 className="text-xl font-bold mb-6">Select Payment Method</h3>
+        <div className="max-w-2xl mx-auto bg-gray-800 border border-gray-700 p-4 md:p-8 rounded-xl">
+          <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">Select Payment Method</h3>
           
           <div className="space-y-4 mb-8">
             <label className={`flex items-center p-4 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'shop' ? 'border-indigo-500 bg-indigo-500/10' : 'border-gray-600 hover:border-gray-500 bg-gray-900'}`}>
@@ -437,29 +437,29 @@ export default function CustomerOrderPage() {
       )}
 
       {step === 3 && orderResult && (
-        <div className="max-w-2xl mx-auto bg-gray-800 border border-green-500/30 p-8 rounded-xl text-center">
-          <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-10 h-10 text-green-500" />
+        <div className="max-w-2xl mx-auto bg-gray-800 border border-green-500/30 p-4 md:p-8 rounded-xl text-center">
+          <div className="w-16 h-16 md:w-20 md:h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+            <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10 text-green-500" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">Order Confirmed!</h3>
-          <p className="text-gray-400 mb-8">Your order has been successfully placed.</p>
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Order Confirmed!</h3>
+          <p className="text-sm md:text-base text-gray-400 mb-6 md:mb-8">Your order has been successfully placed.</p>
           
-          <div className="bg-gray-900 p-6 rounded-lg border border-gray-700 text-left mb-8 space-y-4">
-            <div className="flex justify-between border-b border-gray-800 pb-4">
+          <div className="bg-gray-900 p-4 md:p-6 rounded-lg border border-gray-700 text-left mb-6 md:mb-8 space-y-3 md:space-y-4 text-sm md:text-base overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:justify-between border-b border-gray-800 pb-3 md:pb-4 gap-1 sm:gap-0">
               <span className="text-gray-400">Order ID</span>
-              <span className="font-mono font-bold text-indigo-400">{orderResult.id}</span>
+              <span className="font-mono font-bold text-indigo-400 break-all">{orderResult.id}</span>
             </div>
-            <div className="flex justify-between border-b border-gray-800 pb-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between border-b border-gray-800 pb-3 md:pb-4 gap-1 sm:gap-0">
               <span className="text-gray-400">Title</span>
-              <span className="font-medium text-white">{orderResult.printTitle}</span>
+              <span className="font-medium text-white break-words">{orderResult.printTitle}</span>
             </div>
-            <div className="flex justify-between border-b border-gray-800 pb-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between border-b border-gray-800 pb-3 md:pb-4 gap-1 sm:gap-0">
               <span className="text-gray-400">Item</span>
-              <span className="font-medium text-white">{orderResult.categoryName === 'Others' ? orderResult.customCategory : orderResult.categoryName} - {orderResult.materialName}</span>
+              <span className="font-medium text-white break-words">{orderResult.categoryName === 'Others' ? orderResult.customCategory : orderResult.categoryName} - {orderResult.materialName}</span>
             </div>
-            <div className="flex justify-between border-b border-gray-800 pb-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between border-b border-gray-800 pb-3 md:pb-4 gap-1 sm:gap-0">
               <span className="text-gray-400">Dimensions</span>
-              <span className="font-medium text-white">{orderResult.width} x {orderResult.height} {orderResult.unit} ({orderResult.squareFeet.toFixed(4)} sqft) x {orderResult.quantity}</span>
+              <span className="font-medium text-white break-words">{orderResult.width} x {orderResult.height} {orderResult.unit} ({orderResult.squareFeet.toFixed(4)} sqft) x {orderResult.quantity}</span>
             </div>
             <div className="flex justify-between pt-2">
               <span className="font-bold text-white">Total Amount</span>

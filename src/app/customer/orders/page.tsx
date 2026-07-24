@@ -44,7 +44,7 @@ export default function CustomerOrdersPage() {
       ) : (
         <div className="grid gap-4">
           {orders.map((order) => (
-            <div key={order.id} className="bg-gray-800 border border-gray-700 rounded-xl p-6 flex flex-col md:flex-row gap-6">
+            <div key={order.id} className="bg-gray-800 border border-gray-700 rounded-xl p-4 md:p-6 flex flex-col md:flex-row gap-4 md:gap-6">
               <div className="flex-1 space-y-4 min-w-0">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2 text-sm text-gray-400">
